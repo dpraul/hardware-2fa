@@ -14,7 +14,7 @@ SECRET_PASSWORD = 'password'
 
 
 # if True, will use Serial communication to check passcode, otherwise will use onetimepass library
-USE_DEVICE_COMMUNICATION = True
+USE_DEVICE_COMMUNICATION = False
 
 if USE_DEVICE_COMMUNICATION:
     ser = Serial('COM4', 9600)
