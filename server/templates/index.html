@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% set title = "User Auth" %}
+
+{% block body %}
+<h1>{{ title }}</h1>
+<form method="POST">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password">
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

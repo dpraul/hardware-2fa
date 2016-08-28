@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% set title = "Enter Code" %}
+
+{% block body %}
+<h1>{{ title }}</h1>
+<form method="POST">
+    <label for="code">Code</label>
+    <input type="text" id="code" name="code">
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
