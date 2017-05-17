@@ -1,5 +1,11 @@
 # Hardware-Device 2FA
 
+## Motivation
+This project was created as a means to add location-based security by a dedicated 2FA device. I also did it for
+a school project, so check out [the report I wrote](Two-Factor Authentication with a Dedicated Hardware Device.pdf)
+for lots of extraneous words, pictures, libraries used, and extra info.
+
+
 ## Hardware requirements
  - Arduino Uno
  - DS3231 RTC module: http://a.co/eDsdnLE
