@@ -18,7 +18,7 @@ bool Century = false, h12, PM; // flags needed to use DS3231 library
 
 void setup() {
   Wire.begin();
-  Serial.begin(9600);
+  Serial.begin(500000);
 
   //Wake-up MAX72XX
   lc.shutdown(0, false);

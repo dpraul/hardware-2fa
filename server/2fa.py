@@ -8,6 +8,8 @@ import onetimepass as otp
 app = Flask(__name__)
 
 app.secret_key = 'VERY_SECURE_FLASK_SECRET_KEY'
+port = 'COM7'
+baud = 500000
 
 # user enters this password first
 SECRET_PASSWORD = 'password'
@@ -17,17 +19,18 @@ SECRET_PASSWORD = 'password'
 USE_DEVICE_COMMUNICATION = False
 
 if USE_DEVICE_COMMUNICATION:
-    ser = Serial('COM4', 9600)
+    ser = Serial(port, baud)
 
 # user enters code based on this OTP secret key second
 # this code is the same code synced with the Arduino
-TOTP_SECRET = 'k30asvb6yd'
+TOTP_SECRET = b'k30asvb6yd'
 TOTP_SECRET_ENCODED = base64.b32encode(TOTP_SECRET)
 
 
 def validate_totp_with_arduino(token):
-    ser.write('1')
-    return ser.read(6) == token
+    ser.write(b'1')
+    actual = (ser.read(6)).decode("utf-8")
+    return actual == token
 
 
 @app.route('/', methods=['GET', 'POST'])

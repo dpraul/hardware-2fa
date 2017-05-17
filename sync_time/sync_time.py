@@ -1,8 +1,9 @@
 import time
-from serial import Serial  #pySerial
+from datetime import datetime
+from serial import Serial  # pySerial
 
-loc = 'COM4'
-baud = 9600
+port = 'COM7'
+baud = 500000
 
 
 def send_time(serial):
@@ -18,13 +19,25 @@ def send_time(serial):
     is now programmed and will store the time as long as the
     battery keeps a charge.
     """
-    s.read()  # read sync signal
-    s.write('T%s\n' % int(time.time()))
+    serial.read()  # read sync signal
+
+    # attempt to set as close to on the second as possible
+    now = time.time()
+    time.sleep(now - int(now))
+
+    serial.write(b'T%s\n' % bytes(str(int(time.time())), 'ascii'))
+
+
+def main():
+    s = Serial(port, baud)
+
+    send_time(s)
+    while True:
+        got = datetime.strptime(s.readline().decode("utf-8"), "%Y-%m-%d %H:%M:%S\r\n")
+        now = datetime.utcnow()
+        print('Real: %s, Got: %s, Diff: %s' % (now, got, now - got))
+        time.sleep(0.98)
 
 
 if __name__ == '__main__':
-    s = Serial(loc, baud)
-    send_time(s)
-    while True:
-        print s.readline()
-        time.sleep(1)
+    main()
